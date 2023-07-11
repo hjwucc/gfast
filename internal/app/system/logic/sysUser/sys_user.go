@@ -485,6 +485,7 @@ func (s *sSysUser) addUserRole(ctx context.Context, roleIds []int64, userId int6
 		enforcer, e := commonService.CasbinEnforcer(ctx)
 		liberr.ErrIsNil(ctx, e)
 		for _, v := range roleIds {
+			// AddGroupingPolicy 向当前策略添加角色继承规则。 如果规则已经存在，函数返回false，并且不会添加规则。 否则，函数通过添加新规则并返回true
 			_, e = enforcer.AddGroupingPolicy(fmt.Sprintf("%s%d", s.casBinUserPrefix, userId), gconv.String(v))
 			liberr.ErrIsNil(ctx, e)
 		}
